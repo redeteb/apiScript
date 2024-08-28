@@ -22,7 +22,11 @@ menu = {
         }
     }
 
-dateName = input("Hello! Welcome to our restaurant! We are happy to have you here. And I must ask, what is your date's name? They are stunning. ")
-print(dateName)
+dateName = str(input("Hello! Welcome to our restaurant! We are happy to have you here. And I must ask, what is your date's name? They are stunning. "))
+
+initialBudget = int(input(f"Wow, {dateName} is a lovely name. Next question is, what will be your budget for tonight's meal? "))
+print(f"Ok, your budget is ${initialBudget}.Here is our menu, let me know if you have any questions.")
+
+
 
 
