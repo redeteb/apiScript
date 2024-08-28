@@ -4,10 +4,7 @@
 # Appetizers = Breadsticks, Queso, Calamari
 # Entree = Chicken, Beef, Shrimp
 # Dessert = Cake, Pie, Ice Cream
-# Beverages = Tea, Coke, Water 
-
-
-
+# Beverages = Tea, Coke, Water
 
 
 
