@@ -1,32 +1,43 @@
 
-menu = {
-    "Appetizers": {
-        "Breadsticks": {"Price": 10.0, "Ingredients": ["Bread", "Cheese", "Garlic"], "Dietary Restrictions": "GF/V"},
-        "Queso": {"Price": 11.0, "Ingredients": ["Cheddar", "Swiss", "Pepper Jack"], "Dietary Restrictions": "V"}, 
-        "Calamari": {"Price": 12.0, "Ingredients": ["Squid", "Panko", "Marinara"], "Dietary Restrictions": "GF"}
-    },
-    "Entree": {
-        "Chicken": {"Price": 16.0, "Ingredients": ["Chicken", "Mushrooms", "Pasta"], "Dietary Restrictions": "GF"},
-        "Beef": {"Price": 17.0, "Ingredients": ["Beef", "Onions"], "Dietary Restrictions": "GF"},
-        "Shrimp": {"Price": 20.0, "Ingredients": ["Squid", "Panko", "Marinara"], "Dietary Restrictions": "GF"},
-    },
-    "Dessert":{
-        "Cake": {"Price": 7.0, "Ingredients": ["Chocolate", "Sugar", "Milk"], "Dietary Restrictions": "GF/V"},
-        "Pie": {"Price": 6.0, "Ingredients": ["Cherries", "Bluesberries", "Rasberries"], "Dietary Restrictions": "GF"},
-        "Ice Cream": {"Price": 5.0, "Ingredients": ["Vanilla", "Chocolate", "Strawberry"], "Dietary Restrictions": "GF/V"},
-        },
-    "Beverages": {
-        "Tea": {"Price": 2.0, "Ingredients": ["Black", "Green", "Peach"], "Dietary Retrictions": "GF/V"}, 
-        "Coke": {"Price": 2.0, "Ingredients": ["Cup", "Ice", "Coke"], "Dietary Retrictions": "GF/V"},
-        "Water": {"Price": 1.0, "Ingredients": ["Cup", "Ice", "Water"], "Dietary Retrictions": "GF/V"},
-        }
-    }
+menu = [
+    {"Item": "Breadsticks", "Course": "Appetizers", "Price": 10.0, "GF/V": "GF/V"},
+    {"Item": "Queso", "Course": "Appetizers", "Price": 11.0, "GF/V": "V"},
+    {"Item": "Calamari", "Course": "Appetizers", "Price": 12.0, "GF/V": "GF"},
+    {"Item": "Chicken", "Course": "Entree", "Price": 16.0, "GF/V": "GF"},
+    {"Item": "Beef", "Course": "Entree", "Price": 17.0, "GF/V": "GF"},
+    {"Item": "Shrimp", "Course": "Entree", "Price": 20.0, "GF/V": "GF"},
+    {"Item": "Cake", "Course": "Dessert", "Price": 7.0, "GF/V": "GF/V"},
+    {"Item": "Pie", "Course": "Dessert", "Price": 6.0, "GF/V": "GF"},
+    {"Item": "Ice Cream", "Course": "Dessert", "Price": 5.0, "GF/V": "GF/V"},
+    {"Item": "Tea", "Course": "Beverages", "Price": 2.0, "GF/V": "GF/V"},
+    {"Item": "Coke", "Course": "Beverages", "Price": 2.0, "GF/V": "GF/V"},
+    {"Item": "Water", "Course": "Beverages", "Price": 1.0, "GF/V": "GF/V"}
+]
 
-dateName = str(input("Hello! Welcome to our restaurant! We are happy to have you here. And I must ask, what is your date's name? They are stunning. "))
+dateName = input("Hello, welcome back to our restaurant. What is your date's name tonight?  ")
 
-initialBudget = int(input(f"Wow, {dateName} is a lovely name. Next question is, what will be your budget for tonight's meal? "))
-print(f"Ok, your budget is ${initialBudget}.Here is our menu, let me know if you have any questions.")
+initialBudget = float(input(f"Wow, {dateName} is a lovely name. Next question is, what will be your budget for tonight's meal? Ex. 15.0  "))
+
+print(f"Ok, your budget is ${initialBudget}. Here is our menu.") 
+
+
+from tabulate import tabulate
+print(tabulate(menu, headers="keys", tablefmt="fancy_grid"))
 
 
 
+dateOrder = input("What would your date like this evening?"  )
+#Create order input with counter of budget going down 
 
+
+
+myOrder = input("Excellent choice. And for you?"  )
+#Order input again with counter 
+
+
+orderConfirmation = input("Great choices for both of you. The final total will be 1.0. Will this be okay, yes or no?"  )
+
+if orderConfirmation.lower() == "yes":
+    print("Thank you! Your food will be out shortly!")
+else:
+    print("OK, roll up those sleeves, the dishes are in the back. I'll let the manager know we got another one")
