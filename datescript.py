@@ -16,36 +16,50 @@ menu = [
     {"Item": "Water", "Course": "Beverages", "Price": 1.0, "GF/V": "GF/V"}
 ]
 
-# Function to find item price
-def item_price(order):
-    for item in menu:
-        if item["Item"].lower() == order.lower():
-            return item["Price"]
-    return None
 
-dateName = input("Hello, welcome back to our restaurant. What is your date's name tonight?  ")
+dateName = input("Hello there, welcome back to our restaurant! What is your date's name tonight?  ")
 
-initialBudget = float(input(f"Wow, {dateName} is a lovely name. Next question is, what will be your budget for tonight's meal? Ex. 15.0  "))
+initialBudget = float(input(f"Wow, {dateName} is a lovely name. My next question is, what will be your budget for tonight's meal? Ex. 110.00 "))
 
-print(f"Ok, your budget is ${initialBudget}. Here is our menu.") 
+print(f"Ok, your budget is ${initialBudget} and here are the appitizers. Pick one that you would like to start with.")
 
-print(tabulate(menu, headers="keys", tablefmt="fancy_grid"))
-
-dateOrder = input("What would your date like to order this evening? Enter the items one at a time. ")
-
+#print partial menu 
+#Accept one app as input 
+#anything else just reasks the question
+#Print "Ok. Your budget is now 123. Here are the entrees, choose two.
+#print partial menu 
+#OK your budget is now 123. Here are the desserts, choose one.
+#print partial menu 
+##OK your budget is now 123. Here are the beverages, choose two.
 
 
-
-
-
-
-
-
-myOrder = input("Excellent choice. And for you?"  )
-
-orderConfirmation = input("Great choices for both of you. The final total will be 1.0. Will this be okay, yes or no?"  )
+orderConfirmation = input("Great choices for both of you. The final total will be 3.147896325]. Will this be okay, yes or no?"  )
 
 if orderConfirmation.lower() == "yes":
     print("Thank you! Your food will be out shortly!")
 else:
     print("OK, roll up those sleeves, the dishes are in the back. I'll let the manager know we got another one")
+
+print(tabulate(menu, headers="keys", tablefmt="fancy_grid"))
+
+
+
+
+
+
+
+
+
+# # Function to find item price
+# def item_price(order):
+#     for item in menu:
+#         if item["Item"].lower() == order.lower():
+#             return item["Price"]
+#     return None
+
+
+# split menu into 4 courses 
+# print(tabulate(menu, headers="keys", tablefmt="fancy_grid"))
+
+# dateOrder = input("What would your date like to order this evening? Enter the items one at a time. ")
+# myOrder = input("Excellent choice. And for you?"  )
