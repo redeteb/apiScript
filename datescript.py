@@ -1,4 +1,6 @@
 
+from tabulate import tabulate
+
 menu = [
     {"Item": "Breadsticks", "Course": "Appetizers", "Price": 10.0, "GF/V": "GF/V"},
     {"Item": "Queso", "Course": "Appetizers", "Price": 11.0, "GF/V": "V"},
@@ -14,26 +16,32 @@ menu = [
     {"Item": "Water", "Course": "Beverages", "Price": 1.0, "GF/V": "GF/V"}
 ]
 
+# Function to find item price
+def item_price(order):
+    for item in menu:
+        if item["Item"].lower() == order.lower():
+            return item["Price"]
+    return None
+
 dateName = input("Hello, welcome back to our restaurant. What is your date's name tonight?  ")
 
 initialBudget = float(input(f"Wow, {dateName} is a lovely name. Next question is, what will be your budget for tonight's meal? Ex. 15.0  "))
 
 print(f"Ok, your budget is ${initialBudget}. Here is our menu.") 
 
-
-from tabulate import tabulate
 print(tabulate(menu, headers="keys", tablefmt="fancy_grid"))
 
+dateOrder = input("What would your date like to order this evening? Enter the items one at a time. ")
 
 
-dateOrder = input("What would your date like this evening?"  )
-#Create order input with counter of budget going down 
+
+
+
+
 
 
 
 myOrder = input("Excellent choice. And for you?"  )
-#Order input again with counter 
-
 
 orderConfirmation = input("Great choices for both of you. The final total will be 1.0. Will this be okay, yes or no?"  )
 
