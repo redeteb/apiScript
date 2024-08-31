@@ -17,13 +17,75 @@ menu = [
 ]
 
 
-dateName = input("Hello there, welcome back to our restaurant! What is your date's name tonight?  ")
+# Function to display a partial menu
+def display_menu(course):
+    filtered_menu = [item for item in menu if item["Course"] == course]
+    print(tabulate(filtered_menu, headers="keys", tablefmt="fancy_grid"))
 
-initialBudget = float(input(f"Wow, {dateName} is a lovely name. My next question is, what will be your budget for tonight's meal? Ex. 110.00 "))
 
-print(f"Ok, your budget is ${initialBudget} and here are the appitizers. Pick one that you would like to start with.")
+# Function to process orders
+def valid_order(course, num_items):
+    chosen_items = []
+    while len(chosen_items) < num_items:
+        display_menu(course)
+        order = input().strip() 
+        for item in menu:
+            if item["Course"] == course and item["Item"].lower() == order.lower():
+                chosen_items.append(item)
+                break  
+    return chosen_items
 
-#print partial menu 
+
+# Function to calculate remaining budget
+def calculate_budget(budget, items):
+    for item in items:
+        budget -= item["Price"]
+    return budget
+
+
+
+dateName = input("Hello, welcome to our restaurant! What is your date's name tonight?:  ")
+
+initialBudget = float(input(f"Wow, {dateName} is a lovely name. My next question is, what will be your budget for this evening's meal? Ex. 110.00:  "))
+
+#Ask for app and entree 
+print(f"Ok, your budget is ${initialBudget:.2f}. Here are the Appetizer options. Pick one (1) that you would like to start with.")
+appetizers = valid_order("Appetizers", 1)
+remaining_budget = calculate_budget(initialBudget, appetizers)
+print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Entree options. Please choose two (2).")
+
+#Enter entree and ask for dessert
+entrees = valid_order("Entree", 2)
+remaining_budget = calculate_budget(remaining_budget, entrees)
+print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Dessert options. Please choose one (1).")
+
+#Enter dessert ask for beverage 
+desserts = valid_order("Dessert", 1)
+remaining_budget = calculate_budget(remaining_budget, desserts)
+print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Beverage options. Please choose two (2).")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 #Accept one app as input 
 #anything else just reasks the question
 #Print "Ok. Your budget is now 123. Here are the entrees, choose two.
