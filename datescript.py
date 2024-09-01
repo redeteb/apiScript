@@ -16,63 +16,100 @@ menu = [
     {"Item": "Water", "Course": "Beverages", "Price": 1.0, "GF/V": "GF/V"}
 ]
 
-
 # Function to display a partial menu
 def display_menu(course):
     filtered_menu = [item for item in menu if item["Course"] == course]
     print(tabulate(filtered_menu, headers="keys", tablefmt="fancy_grid"))
 
-
 # Function to process orders
-def valid_order(course, num_items):
-    chosen_items = []
-    while len(chosen_items) < num_items:
+def valid_order(course):
+    while True:
         display_menu(course)
-        order = input().strip()
+        order = input("Choice: ")
         for item in menu:
             if item["Course"] == course and item["Item"].lower() == order.lower():
-                chosen_items.append(item)
-                break  
-    return chosen_items
-
+                return item
+        print(f"'{order}' is not a valid option. Please try again.")
 
 # Function to calculate remaining budget
 def calculate_budget(budget, items):
     for item in items:
+        if budget - item["Price"] < 0:
+            print("Sorry, it seems you have run out of money. You must change your order.")
+            return None 
         budget -= item["Price"]
     return budget
 
 
 
-dateName = input("Hello, Welcome to our restaurant! What is your date's name tonight?:  ")
+while True:
+    try:
+        dateName = input("Hello, Welcome to our restaurant! What is your date's name tonight?:  ")
+        initialBudget = float(input(f"Wow, {dateName} is a lovely name. What will be your budget for this evening's meal? Ex. 100 or 80.85: "))
+        break  
+    except ValueError:
+        print("Invalid input. Please enter a valid amount.")
 
-initialBudget = float(input(f"Wow, {dateName} is a lovely name. My next question is, what will be your budget for this evening's meal? Ex. 110.00:  "))
+    remaining_budget = initialBudget
 
-#Ask for app and entree 
-print(f"Ok, your budget is ${initialBudget:.2f}. Here are the Appetizer options. Pick one (1) that you would like to start with:")
-appetizers = valid_order("Appetizers", 1)
-remaining_budget = calculate_budget(initialBudget, appetizers)
-print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Entree options. Please choose two (2) Ex. Chicken, Chicken:")
+while True:
+    #Choose app
+    print(f"Ok, your budget is ${initialBudget:.2f}. Here are the Appetizer options. Pick one (1): ")
+    appetizers = [valid_order("Appetizers")]
+    remaining_budget = calculate_budget(initialBudget, appetizers)
+    if remaining_budget is None:
+        continue 
+    
+    print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Entree options. Please select your first choice: ")
 
-#Enter entree and ask for dessert
-entrees = valid_order("Entrees", 2)
-remaining_budget = calculate_budget(remaining_budget, entrees)
-print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Dessert options. Please choose one (1):")
+    #Choose Entree 1
+    first_entree = [valid_order("Entrees")]
+    remaining_budget = calculate_budget(remaining_budget, first_entree)
+    if remaining_budget is None:
+        continue  
+    
+    print(f"Ok. Your budget is now ${remaining_budget:.2f}. Choose your second Entree: ")
 
-#Enter dessert ask for beverage 
-desserts = valid_order("Desserts", 1)
-remaining_budget = calculate_budget(remaining_budget, desserts)
-print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Beverage options. Please choose two (2). Ex. Coke, Coke:")
+    #Choose Entree 2
+    second_entree = [valid_order("Entrees")]
+    remaining_budget = calculate_budget(remaining_budget, second_entree)
+    if remaining_budget is None:
+        continue  
 
-#Enter beverage and give final confirmation
-beverages = valid_order("Beverages", 2)
-remaining_budget = calculate_budget(remaining_budget, beverages)
+    print(f"Ok. Your budget is now ${remaining_budget:.2f}. Choose one (1) Dessert: ")
+
+    #Choose Dessert
+    desserts = [valid_order("Desserts")]
+    remaining_budget = calculate_budget(remaining_budget, desserts)
+    if remaining_budget is None:
+        continue  
+
+    print(f"Ok. Your budget is now ${remaining_budget:.2f}. Here are the Beverage options. Please select your first choice: ")
+
+    #Choose Beverage 1
+    first_beverage = [valid_order("Beverages")]
+    remaining_budget = calculate_budget(remaining_budget, first_beverage)
+    if remaining_budget is None:
+        continue  
+    
+    print(f"Ok. Your budget is now ${remaining_budget:.2f}. Choose your second Beverage: ")
+
+    #Choose Bevrage 2
+    second_beverage = [valid_order("Beverages")]
+    remaining_budget = calculate_budget(remaining_budget, second_beverage)
+    if remaining_budget is not None:
+        break
 
 total_spent = initialBudget - remaining_budget
 
-orderConfirmation = input(f"Great choices for both of you. The final total will be ${total_spent:.2f}. Will this be okay, yes or no?:  ")
+if remaining_budget is not None:
+    total_spent = initialBudget - remaining_budget
+else:
+    total_spent = initialBudget  
+
+orderConfirmation = input(f"Great choices for the both of you. The final total will be ${total_spent:.2f}. Will this be okay, yes or no?:  ")
 
 if orderConfirmation.lower() == "yes":
     print("Thank you! Your food will be out shortly!")
 else:
-    print("OK, roll up those sleeves, the dishes are in the back. I'll let the manager know we got another one")
+    print("OK, roll up those sleeves, the dishes are in the back. I'll let the manager know we've got another one.")
